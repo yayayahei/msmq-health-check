@@ -28,6 +28,12 @@ namespace MSMQHealthCheck
             {
                 queueManager.SendHello();
             }
+
+            if (arguments.GetMessage)
+            {
+                var message = queueManager.GetMessage();
+                Console.WriteLine($"Get one message: {message.Body}");
+            }
         }
     }
 }

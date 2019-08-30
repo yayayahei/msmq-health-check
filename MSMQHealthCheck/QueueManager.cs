@@ -1,4 +1,5 @@
-﻿using System.Messaging;
+﻿using System;
+using System.Messaging;
 
 namespace MSMQHealthCheck
 {
@@ -42,6 +43,13 @@ namespace MSMQHealthCheck
         public void SendHello()
         {
             MessageQueue.Send("Hello");
+        }
+
+        public Message GetMessage()
+        {
+            MessageQueue.Formatter = new XmlMessageFormatter(new Type[] {typeof(string)});
+            var message = MessageQueue.Receive();
+            return message;
         }
     }
 }

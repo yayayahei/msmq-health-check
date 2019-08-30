@@ -10,12 +10,14 @@ namespace MSMQHealthCheck
         private string _formatNameOptionName = "--formatName";
         private string _logLevelOptionName = "--logLevel";
         private string _sendHello = "--sendHello";
+        private string _getMessage = "--getMessage";
 
         public string PathName { get; set; }
         public string FormatName { get; set; }
         public LogLevel LogLevel { get; set; }
 
         public bool SendHello { get; set; }
+        public bool GetMessage { get; set; }
 
         public Arguments(string[] args)
         {
@@ -52,6 +54,11 @@ namespace MSMQHealthCheck
                 {
                     SendHello = true;
                 }
+
+                if (_getMessage.Equals(currentArg))
+                {
+                    GetMessage = true;
+                }
             }
 
             if (LogLevel.Debug.Equals(LogLevel))
@@ -68,6 +75,7 @@ namespace MSMQHealthCheck
             stringBuilder.AppendLine($"{_formatNameOptionName}: {FormatName}");
             stringBuilder.AppendLine($"{_logLevelOptionName}: {LogLevel}");
             stringBuilder.AppendLine($"{_sendHello}: {SendHello}");
+            stringBuilder.AppendLine($"{_getMessage}: {GetMessage}");
             return stringBuilder.ToString();
         }
     }

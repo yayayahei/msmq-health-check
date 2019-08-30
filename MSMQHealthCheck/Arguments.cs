@@ -5,21 +5,29 @@ namespace MSMQHealthCheck
 {
     public class Arguments
     {
+        private readonly string[] _args;
+
         public Arguments(string[] args)
         {
+            _args = args;
+            Init();
+        }
+
+        private void Init()
+        {
             string currentArg = null;
-            for (int index = 0; index < args.Length; index++)
+            for (int index = 0; index < _args.Length; index++)
             {
-                currentArg = args[index];
+                currentArg = _args[index];
                 if (_pathNameOptionName.Equals(currentArg))
                 {
-                    PathName = args[++index];
+                    PathName = _args[++index];
                 }
 
                 if (_logLevelOptionName.Equals(currentArg))
                 {
                     LogLevel logLevel;
-                    if (Enum.TryParse(args[++index], true, out logLevel))
+                    if (Enum.TryParse(_args[++index], true, out logLevel))
                     {
                         LogLevel = logLevel;
                     }

@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSMQHealthCheck", "MSMQHealthCheck\MSMQHealthCheck.csproj", "{F38B584B-C2C0-47CD-B69F-2EBD6A4E9234}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSMQHealthCheckUnitTests", "MSMQHealthCheckUnitTests\MSMQHealthCheckUnitTests.csproj", "{39395D12-5F8E-4445-B167-1FDC502279B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{F38B584B-C2C0-47CD-B69F-2EBD6A4E9234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F38B584B-C2C0-47CD-B69F-2EBD6A4E9234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F38B584B-C2C0-47CD-B69F-2EBD6A4E9234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39395D12-5F8E-4445-B167-1FDC502279B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39395D12-5F8E-4445-B167-1FDC502279B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39395D12-5F8E-4445-B167-1FDC502279B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39395D12-5F8E-4445-B167-1FDC502279B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

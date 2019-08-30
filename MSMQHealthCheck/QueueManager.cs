@@ -8,16 +8,14 @@ namespace MSMQHealthCheck
     public class QueueManager
     {
         private readonly string _pathName;
+        private readonly string _formatName;
+
         public MessageQueue MessageQueue { get; set; }
 
-        public QueueManager(string pathName)
+        public QueueManager(string pathName, string formatName)
         {
             _pathName = pathName;
-
-            if (Exist())
-            {
-                MessageQueue = new MessageQueue(_pathName);
-            }
+            _formatName = formatName;
         }
 
         /// <summary>
@@ -28,6 +26,16 @@ namespace MSMQHealthCheck
         public bool Exist()
         {
             return MessageQueue.Exists(_pathName);
+        }
+
+        /// <summary>
+        /// this can be used to check remote queue existence
+        /// </summary>
+        /// <returns></returns>
+        public bool CanWrite()
+        {
+            MessageQueue = new MessageQueue($"FormatName:{_formatName}");
+            return MessageQueue.CanWrite;
         }
     }
 }

@@ -7,10 +7,21 @@ namespace MSMQHealthCheck
         public static void Main(string[] args)
         {
             var arguments = new Arguments(args);
-            var queueManager = new QueueManager(arguments.PathName);
-            if (queueManager.Exist())
+            var queueManager = new QueueManager(arguments.PathName, arguments.FormatName);
+            if (!string.IsNullOrWhiteSpace(arguments.PathName))
             {
-                Console.WriteLine($"{arguments.PathName} exists");
+                if (queueManager.Exist())
+                {
+                    Console.WriteLine($"{arguments.PathName} exists");
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(arguments.FormatName))
+            {
+                if (queueManager.CanWrite())
+                {
+                    Console.WriteLine($"{arguments.FormatName} exists");
+                }
             }
         }
     }

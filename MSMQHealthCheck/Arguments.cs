@@ -6,7 +6,14 @@ namespace MSMQHealthCheck
     public class Arguments
     {
         private readonly string[] _args;
-
+        private string _pathNameOptionName = "--pathName";
+        private string _formatNameOptionName = "--formatName";
+        private string _logLevelOptionName = "--logLevel";
+        
+        public string PathName { get; set; }
+        public string FormatName { get; set; }
+        public LogLevel LogLevel { get; set; }
+        
         public Arguments(string[] args)
         {
             _args = args;
@@ -23,7 +30,10 @@ namespace MSMQHealthCheck
                 {
                     PathName = _args[++index];
                 }
-
+                if (_formatNameOptionName.Equals(currentArg))
+                {
+                    FormatName = _args[++index];
+                }
                 if (_logLevelOptionName.Equals(currentArg))
                 {
                     LogLevel logLevel;
@@ -39,11 +49,6 @@ namespace MSMQHealthCheck
                 Console.WriteLine(ToString());
             }
         }
-
-        private string _pathNameOptionName = "--pathName";
-        private string _logLevelOptionName = "--logLevel";
-        public string PathName { get; set; }
-        public LogLevel LogLevel { get; set; }
 
         public override string ToString()
         {

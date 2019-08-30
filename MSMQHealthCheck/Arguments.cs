@@ -9,11 +9,14 @@ namespace MSMQHealthCheck
         private string _pathNameOptionName = "--pathName";
         private string _formatNameOptionName = "--formatName";
         private string _logLevelOptionName = "--logLevel";
-        
+        private string _sendHello = "--sendHello";
+
         public string PathName { get; set; }
         public string FormatName { get; set; }
         public LogLevel LogLevel { get; set; }
-        
+
+        public bool SendHello { get; set; }
+
         public Arguments(string[] args)
         {
             _args = args;
@@ -30,10 +33,12 @@ namespace MSMQHealthCheck
                 {
                     PathName = _args[++index];
                 }
+
                 if (_formatNameOptionName.Equals(currentArg))
                 {
                     FormatName = _args[++index];
                 }
+
                 if (_logLevelOptionName.Equals(currentArg))
                 {
                     LogLevel logLevel;
@@ -41,6 +46,11 @@ namespace MSMQHealthCheck
                     {
                         LogLevel = logLevel;
                     }
+                }
+
+                if (_sendHello.Equals(currentArg))
+                {
+                    SendHello = true;
                 }
             }
 
@@ -55,7 +65,9 @@ namespace MSMQHealthCheck
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine("Args:");
             stringBuilder.AppendLine($"{_pathNameOptionName}: {PathName}");
+            stringBuilder.AppendLine($"{_formatNameOptionName}: {FormatName}");
             stringBuilder.AppendLine($"{_logLevelOptionName}: {LogLevel}");
+            stringBuilder.AppendLine($"{_sendHello}: {SendHello}");
             return stringBuilder.ToString();
         }
     }

@@ -23,6 +23,11 @@ namespace MSMQHealthCheck
                     Console.WriteLine($"{arguments.FormatName} exists");
                 }
             }
+
+            if (arguments.SendHello)
+            {
+                queueManager.SendHello();
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ namespace MSMQHealthCheck
         /// <returns></returns>
         public bool Exist()
         {
+            MessageQueue = new MessageQueue(_pathName);
             return MessageQueue.Exists(_pathName);
         }
 
@@ -36,6 +37,11 @@ namespace MSMQHealthCheck
         {
             MessageQueue = new MessageQueue($"FormatName:{_formatName}");
             return MessageQueue.CanWrite;
+        }
+
+        public void SendHello()
+        {
+            MessageQueue.Send("Hello");
         }
     }
 }

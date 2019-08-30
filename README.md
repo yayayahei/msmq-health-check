@@ -10,6 +10,7 @@ This is a commandline tool under Windows platform to test MSMQ's health.
 * pathName
 * formatName
 * logLevel
+* sendHello
 
 ```
 > MSMQHealthCheck.exe --pathName ".\private$\default"
@@ -21,4 +22,8 @@ This is a commandline tool under Windows platform to test MSMQ's health.
 
 ```
 > MSMQHealthCheck.exe --formatName "DIRECT=TCP:192.168.19.133\private$\default"
+```
+
+```
+> MSMQHealthCheck.exe --formatName "DIRECT=TCP:192.168.19.133\private$\default" --sendHello
 ```

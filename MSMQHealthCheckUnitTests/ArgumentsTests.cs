@@ -11,7 +11,7 @@ namespace MSMQHealthCheckUnitTests
         {
             var pathName = @".\private$\default";
             Arguments arguments = new Arguments(new[] {"--pathName",pathName});
-            Assert.True(pathName.Equals(arguments.pathName));
+            Assert.True(pathName.Equals(arguments.PathName));
         }
     }
 }

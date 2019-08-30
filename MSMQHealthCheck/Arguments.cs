@@ -12,13 +12,13 @@ namespace MSMQHealthCheck
                 currentArg = args[index];
                 if ("--pathName".Equals(currentArg))
                 {
-                    pathName = args[++index];
+                    PathName = args[++index];
                 }
 
-                Console.WriteLine($"{currentArg}:{pathName}");
+                Console.WriteLine($"{currentArg}:{PathName}");
             }
         }
 
-        public string pathName { get; set; }
+        public string PathName { get; set; }
     }
 }

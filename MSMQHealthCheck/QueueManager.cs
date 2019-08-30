@@ -22,6 +22,7 @@ namespace MSMQHealthCheck
 
         /// <summary>
         /// check the queue exists or not
+        /// only worked for local msmq
         /// </summary>
         /// <returns></returns>
         public bool Exist()

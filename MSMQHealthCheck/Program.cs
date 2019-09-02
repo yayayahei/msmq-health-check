@@ -18,14 +18,8 @@ namespace MSMQHealthCheck
 
             if (!string.IsNullOrWhiteSpace(arguments.FormatName))
             {
-                if (queueManager.CanWrite())
-                {
-                    Console.WriteLine($"{arguments.FormatName} CanWrite");
-                }
-                if (queueManager.CanRead())
-                {
-                    Console.WriteLine($"{arguments.FormatName} CanRead");
-                }
+                Console.WriteLine($"{arguments.FormatName} CanWrite? {queueManager.CanWrite()}");
+                Console.WriteLine($"{arguments.FormatName} CanRead? {queueManager.CanRead()}");
             }
 
             if (arguments.SendHello)

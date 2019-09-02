@@ -19,6 +19,30 @@ namespace MSMQHealthCheck
         {
             _pathName = pathName;
             _formatName = formatName;
+            if (!string.IsNullOrWhiteSpace(_pathName))
+            {
+                MessageQueue = new MessageQueue(_pathName);
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(_formatName))
+            {
+                MessageQueue = new MessageQueue($"FormatName:{_formatName}");
+            }
+        }
+
+        public override string ToString()
+        {
+            if (MessageQueue == null) return base.ToString();
+            
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine($"Can Read? :{MessageQueue.CanRead}");
+            stringBuilder.AppendLine($"Can Write? :{MessageQueue.CanWrite}");
+            stringBuilder.AppendLine($"AccessMode? :{MessageQueue.AccessMode}");
+            stringBuilder.AppendLine($"DenySharedReceive? :{MessageQueue.DenySharedReceive}");
+                
+            return stringBuilder.ToString();
+
         }
 
         /// <summary>
@@ -28,28 +52,9 @@ namespace MSMQHealthCheck
         /// <returns></returns>
         public bool Exist()
         {
-            MessageQueue = new MessageQueue(_pathName);
             return MessageQueue.Exists(_pathName);
         }
 
-        /// <summary>
-        /// this can be used to check remote queue existence
-        /// </summary>
-        /// <returns></returns>
-        public bool CanWrite()
-        {
-            MessageQueue = new MessageQueue($"FormatName:{_formatName}");
-            return MessageQueue.CanWrite;
-        }
-        /// <summary>
-        /// this can be used to check remote queue existence
-        /// </summary>
-        /// <returns></returns>
-        public bool CanRead()
-        {
-            MessageQueue = new MessageQueue($"FormatName:{_formatName}");
-            return MessageQueue.CanRead;
-        }
         public void SendHello()
         {
             MessageQueue.Send("Hello");
@@ -74,7 +79,7 @@ namespace MSMQHealthCheck
                 log.AppendLine($"InnerException: {messageQueueException.InnerException}");
                 log.AppendLine($"StackTrace: {messageQueueException.StackTrace}");
                 log.AppendLine($"Exception string: {messageQueueException}");
-                
+
                 Console.WriteLine(log.ToString());
             }
 

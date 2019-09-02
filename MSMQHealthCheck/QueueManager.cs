@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Messaging;
+using System.Text;
 
 namespace MSMQHealthCheck
 {
@@ -10,6 +11,7 @@ namespace MSMQHealthCheck
     {
         private readonly string _pathName;
         private readonly string _formatName;
+        private static readonly object _lock = new object();
 
         public MessageQueue MessageQueue { get; set; }
 
@@ -47,9 +49,28 @@ namespace MSMQHealthCheck
 
         public Message GetMessage()
         {
-            MessageQueue.Formatter = new XmlMessageFormatter(new Type[] {typeof(string)});
-            var message = MessageQueue.Receive();
-            return message;
+            try
+            {
+                MessageQueue.Formatter = new XmlMessageFormatter(new Type[] {typeof(string)});
+                lock (_lock)
+                {
+                    var message = MessageQueue.Receive();
+                    return message;
+                }
+            }
+            catch (MessageQueueException messageQueueException)
+            {
+                StringBuilder log = new StringBuilder(messageQueueException.Message);
+                log.AppendLine($"MessageQueueErrorCode: {messageQueueException.MessageQueueErrorCode}");
+                log.AppendLine($"ErrorCode: {messageQueueException.ErrorCode}");
+                log.AppendLine($"InnerException: {messageQueueException.InnerException}");
+                log.AppendLine($"StackTrace: {messageQueueException.StackTrace}");
+                log.AppendLine($"Exception string: {messageQueueException}");
+                
+                Console.WriteLine(log.ToString());
+            }
+
+            return null;
         }
     }
 }

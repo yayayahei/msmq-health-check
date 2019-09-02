@@ -32,7 +32,7 @@ namespace MSMQHealthCheck
             if (arguments.GetMessage)
             {
                 var message = queueManager.GetMessage();
-                Console.WriteLine($"Get one message: {message.Body}");
+                Console.WriteLine($"Get message result: {message?.Body}");
             }
         }
     }

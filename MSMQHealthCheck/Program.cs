@@ -20,7 +20,11 @@ namespace MSMQHealthCheck
             {
                 if (queueManager.CanWrite())
                 {
-                    Console.WriteLine($"{arguments.FormatName} exists");
+                    Console.WriteLine($"{arguments.FormatName} CanWrite");
+                }
+                if (queueManager.CanRead())
+                {
+                    Console.WriteLine($"{arguments.FormatName} CanRead");
                 }
             }
 

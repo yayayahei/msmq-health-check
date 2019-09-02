@@ -41,7 +41,15 @@ namespace MSMQHealthCheck
             MessageQueue = new MessageQueue($"FormatName:{_formatName}");
             return MessageQueue.CanWrite;
         }
-
+        /// <summary>
+        /// this can be used to check remote queue existence
+        /// </summary>
+        /// <returns></returns>
+        public bool CanRead()
+        {
+            MessageQueue = new MessageQueue($"FormatName:{_formatName}");
+            return MessageQueue.CanRead;
+        }
         public void SendHello()
         {
             MessageQueue.Send("Hello");

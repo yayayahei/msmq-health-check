@@ -39,7 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arguments.cs" />
+    <Compile Include="Cli\Arguments.cs" />
+    <Compile Include="Cli\OptionItem.cs" />
+    <Compile Include="Cli\OptionsEnum.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="LogLevel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

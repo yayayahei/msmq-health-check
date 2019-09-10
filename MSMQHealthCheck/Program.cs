@@ -1,4 +1,5 @@
 ﻿using System;
+using MSMQHealthCheck.Cli;
 
 namespace MSMQHealthCheck
 {

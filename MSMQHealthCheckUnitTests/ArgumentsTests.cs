@@ -1,5 +1,6 @@
 ﻿using System;
 using MSMQHealthCheck;
+using MSMQHealthCheck.Cli;
 using Xunit;
 
 namespace MSMQHealthCheckUnitTests

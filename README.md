@@ -6,6 +6,15 @@ This is a commandline tool under Windows platform to test MSMQ's health.
 
 
 #### Options
+```
+Options:
+        --pathName      path name of the queue
+        --formatName     format name of the queue
+        --logLevel      log level
+        --sendHello     flag to send hello to pathName or formatName
+        --getMessage    flag to get message from pathName or formatName
+        --help, -h, /h  flag to show help
+```
 * help
 ```
 > MSMQHealthCheck.exe --help

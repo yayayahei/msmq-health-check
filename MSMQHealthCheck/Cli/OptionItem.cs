@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Security;
+using System.Text;
+using System.Text.RegularExpressions;
 using MSMQHealthCheck.Extensions;
 
 namespace MSMQHealthCheck.Cli
@@ -13,30 +15,32 @@ namespace MSMQHealthCheck.Cli
         {
         }
 
-        public OptionItem(OptionsEnum optionsEnum, string shortName, string alias, bool shouldHaveValue)
+        public OptionItem(OptionsEnum optionsEnum, string shortName, string alias, bool shouldHaveValue,
+            string description)
         {
             OptionsEnum = optionsEnum;
             Name = optionsEnum.ToString().ToCamelCase();
             ShortName = shortName;
             Alias = alias;
             ShouldHaveValue = shouldHaveValue;
+            Description = description;
         }
 
         public bool Match(string optionArg)
         {
             if (optionArg.StartsWith(NamePrefix))
             {
-                return Name.Equals(optionArg.Substring(NamePrefix.Length));
+                return optionArg.Substring(NamePrefix.Length).Equals(Name);
             }
 
             if (optionArg.StartsWith(ShortNamePrefix))
             {
-                return ShortName.Equals(optionArg.Substring(ShortNamePrefix.Length));
+                return optionArg.Substring(ShortNamePrefix.Length).Equals(ShortName);
             }
 
             if (optionArg.StartsWith(AliasPrefix))
             {
-                return Alias.Equals(optionArg.Substring(AliasPrefix.Length));
+                return optionArg.Substring(AliasPrefix.Length).Equals(Alias);
             }
 
             return false;
@@ -74,9 +78,33 @@ namespace MSMQHealthCheck.Cli
         /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// help description
+        /// </summary>
+        public string Description { get; set; }
+
         public override string ToString()
         {
             return $"{Name}: {(ShouldHaveValue ? Value : Exist.ToString())}";
+        }
+
+        public string ToHelp()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append($"{NamePrefix}{Name}");
+            if (!string.IsNullOrWhiteSpace(ShortName))
+            {
+                stringBuilder.Append($", {ShortNamePrefix}{ShortName}");
+            }
+
+            if (!string.IsNullOrWhiteSpace(Alias))
+            {
+                stringBuilder.Append($", {AliasPrefix}{Alias}");
+            }
+
+            stringBuilder.Append("\t");
+            stringBuilder.Append(Description);
+            return stringBuilder.ToString();
         }
     }
 }

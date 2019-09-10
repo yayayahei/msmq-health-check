@@ -9,17 +9,34 @@ namespace MSMQHealthCheck.Cli
     {
         private readonly string[] _args;
         private static readonly ICollection<OptionItem> OptionsDic;
+
         static Arguments()
         {
             OptionsDic = new List<OptionItem>()
             {
-                new OptionItem(OptionsEnum.PathName, null, null, true),
-                new OptionItem(OptionsEnum.FormatName, null, null, true),
-                new OptionItem(OptionsEnum.LogLevel, null, null, true),
-                new OptionItem(OptionsEnum.SendHello, null, null, false),
-                new OptionItem(OptionsEnum.GetMessage, null, null, false),
-                new OptionItem(OptionsEnum.Help, "h", "h", false),
+                new OptionItem(OptionsEnum.PathName, null, null, true, "path name of the queue"),
+                new OptionItem(OptionsEnum.FormatName, null, null, true, " format name of the queue"),
+                new OptionItem(OptionsEnum.LogLevel, null, null, true, "log level"),
+                new OptionItem(OptionsEnum.SendHello, null, null, false,
+                    "flag to send hello to pathName or formatName"),
+                new OptionItem(OptionsEnum.GetMessage, null, null, false,
+                    "flag to get message from pathName or formatName"),
+                new OptionItem(OptionsEnum.Help, "h", "h", false, "flag to show help"),
             };
+        }
+
+        public Arguments(string[] args)
+        {
+            _args = args;
+            Init();
+        }
+
+        public bool NoArg
+        {
+            get
+            {
+                return _args == null || _args.Length == 0;
+            }
         }
 
         public string PathName
@@ -64,10 +81,13 @@ namespace MSMQHealthCheck.Cli
             }
         }
 
-        public Arguments(string[] args)
+        public bool Help
         {
-            _args = args;
-            Init();
+            get
+            {
+                OptionItem option = OptionsDic.FirstOrDefault(o => o.OptionsEnum.Equals(OptionsEnum.Help));
+                return option?.Exist ?? false;
+            }
         }
 
         private void Init()
@@ -95,6 +115,7 @@ namespace MSMQHealthCheck.Cli
             }
         }
 
+
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -103,6 +124,19 @@ namespace MSMQHealthCheck.Cli
             {
                 stringBuilder.AppendLine(optionItem.ToString());
             }
+
+            return stringBuilder.ToString();
+        }
+
+        public string ToHelpString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("Options:");
+            foreach (OptionItem optionItem in OptionsDic)
+            {
+                stringBuilder.AppendLine($"\t{optionItem.ToHelp()}");
+            }
+
             return stringBuilder.ToString();
         }
     }
